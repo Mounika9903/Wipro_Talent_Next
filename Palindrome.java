@@ -1,3 +1,4 @@
+package Wipro_Talent_Next;
 // write a program to check wheather the given number is palindrome or not
 import java.util.Scanner;
 public class Palindrome {
