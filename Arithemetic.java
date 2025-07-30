@@ -1,4 +1,4 @@
-package Wipro_Talent_Next;
+
 // Write a program to demonstrate working of arithmetic operators.
 
 public class Arithemetic {

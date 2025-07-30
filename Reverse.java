@@ -1,4 +1,4 @@
-package Wipro_Talent_Next;
+
 // write a program to reverse a string or number add those number with given number
 import java.util.Scanner;
 public class Reverse {                      

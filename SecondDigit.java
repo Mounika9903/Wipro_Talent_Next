@@ -1,4 +1,4 @@
-package Wipro_Talent_Next;
+
 // write a program if input is 1234 and output is 2 it should run for all given number should print second number
 import java.util.Scanner;
 public class SecondDigit {

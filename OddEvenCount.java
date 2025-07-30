@@ -1,5 +1,5 @@
 // write a program to count odd and even digits in a number
-package Wipro_Talent_Next;
+
 import java.util.Scanner;        
 public class OddEvenCount {
     public static void main(String[] args) {
