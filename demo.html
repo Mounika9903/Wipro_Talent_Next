@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number Magic Unlimited</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --secondary: #a29bfe;
+      --success: #00b894;
+      --error: #d63031;
+      --light: #f8f9fa;
+      --dark: #2d3436;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      color: var(--dark);
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(108, 92, 231, 0.2);
+    }
+    
+    .operation-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-left: 5px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .operation-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .operation-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .operation-card h2 {
+      color: var(--primary);
+      margin-top: 0;
+      padding-bottom: 15px;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .operation-card p {
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    input[type="text"] {
+      flex: 1;
+      padding: 15px 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+      background-color: white;
+    }
+    
+    input[type="button"] {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+    }
+    
+    input[type="button"]:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(108, 92, 231, 0.4);
+    }
+    
+    input[type="button"]:active {
+      transform: translateY(0);
+    }
+    
+    .result {
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.6s ease-out;
+      border-left: 4px solid var(--primary);
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .icon {
+      font-size: 28px;
+      margin-right: 15px;
+      vertical-align: middle;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    
+    .success {
+      color: var(--success);
+      font-weight: 600;
+    }
+    
+    .error {
+      color: var(--error);
+      font-weight: 600;
+    }
+    
+    .result-icon {
+      font-size: 24px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    
+    .big-number {
+      word-break: break-all;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    /* Pulse animation for buttons */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+      
+      input[type="button"] {
+        width: 100%;
+      }
+    }
+    
+    /* Custom scrollbar */
+    .result::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .result::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .result::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 10px;
+    }
+    
+    .result::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Number Checking ✨</h1>
+    
+    <div class="operation-card">
+      <h2><span class="icon">🔠</span> Palindrome Checker</h2>
+      <p>Discover if your number reads the same forwards and backwards. Try numbers like 121 or 1331!</p>
+      <div class="input-group">
+        <input type="text" id="palindromeInput" placeholder="Enter any number...">
+        <input type="button" value="Check" onclick="checkPalindrome()" class="pulse">
+      </div>
+      <div id="palindromeResult" class="result"></div>
+    </div>
+    
+    <div class="operation-card">
+      <h2><span class="icon">🔢</span> Fibonacci Generator</h2>
+      <p>Generate the magical Fibonacci sequence of any length you desire!</p>
+      <div class="input-group">
+        <input type="text" id="fibonacciInput" placeholder="How many numbers?">
+        <input type="button" value="Generate" onclick="generateFibonacci()">
+      </div>
+      <div id="fibonacciResult" class="result"></div>
+    </div>
+    
+    <div class="operation-card">
+      <h2><span class="icon">🔢</span> Factorial Calculator</h2>
+      <p>Calculate the factorial of any number - no limits! Watch how numbers grow exponentially.</p>
+      <div class="input-group">
+        <input type="text" id="factorialInput" placeholder="Enter a number">
+        <input type="button" value="Calculate" onclick="calculateFactorial()">
+      </div>
+      <div id="factorialResult" class="result"></div>
+    </div>
+    
+    <div class="footer">
+      <p>© 2023 Number Magic Unlimited | Made with ❤️ and JavaScript</p>
+    </div>
+  </div>
+
+  <script>
+    function checkPalindrome() {
+      const input = document.getElementById('palindromeInput').value.trim();
+      const resultElement = document.getElementById('palindromeResult');
+      
+      if (!input) {
+        showResult(resultElement, '<span class="result-icon">❌</span> Please enter a number', 'error');
+        return;
+      }
+      
+      if (!/^\d+$/.test(input)) {
+        showResult(resultElement, '<span class="result-icon">❌</span> Please enter a valid number', 'error');
+        return;
+      }
+      
+      const isPalindrome = input === input.split('').reverse().join('');
+      const message = isPalindrome 
+        ? `<span class="result-icon">✅</span> <span class="success">"${input}" is a palindrome! Magic!</span>`
+        : `<span class="result-icon">❌</span> <span class="error">"${input}" is not a palindrome. Try again!</span>`;
+      
+      showResult(resultElement, message);
+    }
+    
+    function generateFibonacci() {
+      const input = document.getElementById('fibonacciInput').value.trim();
+      const resultElement = document.getElementById('fibonacciResult');
+      
+      if (!input) {
+        showResult(resultElement, '<span class="result-icon">❌</span> Please enter a number', 'error');
+        return;
+      }
+      
+      const length = parseInt(input);
+      if (isNaN(length) || length < 1) {
+        showResult(resultElement, '<span class="result-icon">❌</span> Please enter a positive number', 'error');
+        return;
+      }
+      
+      // Show loading state for very large sequences
+      if (length > 1000) {
+        showResult(resultElement, '<span class="result-icon">⏳</span> Generating a huge Fibonacci sequence...', 'success');
+      }
+      
+      // Use setTimeout to allow UI to update before heavy computation
+      setTimeout(() => {
+        let sequence = [];
+        if (length >= 1) sequence = [0n];
+        if (length >= 2) sequence = [0n, 1n];
+        
+        for (let i = 2; i < length; i++) {
+          sequence.push(sequence[i-1] + sequence[i-2]);
+        }
+        
+        const resultText = length > 100 ? 
+          `First and last 5 of ${length} Fibonacci numbers:<br>
+          <div class="big-number">${sequence.slice(0, 5).join(', ')} ... ${sequence.slice(-5).join(', ')}</div>` :
+          `Fibonacci sequence (${length} numbers):<br><div class="big-number">${sequence.join(', ')}</div>`;
+        
+        showResult(resultElement, `<span class="result-icon">🔢</span> ${resultText}`);
+      }, 10);
+    }
+    
+    function calculateFactorial() {
+      const input = document.getElementById('factorialInput').value.trim();
+      const resultElement = document.getElementById('factorialResult');
+      
+      if (!input) {
+        showResult(resultElement, '<span class="result-icon">🔢</span> Please enter a number', 'error');
+        return;
+      }
+      
+      const num = parseInt(input);
+      if (isNaN(num)) {
+        showResult(resultElement, '<span class="result-icon">❌</span> Please enter a valid number', 'error');
+        return;
+      }
+      
+      if (num < 0) {
+        showResult(resultElement, '<span class="result-icon">❌</span> Factorial is not defined for negative numbers', 'error');
+        return;
+      }
+      
+      // Show loading state for very large factorials
+      if (num > 10000) {
+        showResult(resultElement, '<span class="result-icon">⏳</span> Calculating a huge factorial...', 'success');
+      }
+      
+      // Use setTimeout to allow UI to update before heavy computation
+      setTimeout(() => {
+        let factorial = 1n;
+        let calculation = '';
+        
+        for (let i = 1; i <= num; i++) {
+          factorial *= BigInt(i);
+          if (num <= 20 || i <= 3 || i > num - 3) {
+            calculation += i === num ? `${i}` : `${i} × `;
+          } else if (i === 4) {
+            calculation += `... × `;
+          }
+        }
+        
+        const factorialStr = factorial.toString();
+        const resultText = num > 20 ? 
+          `${num}! = ${calculation} = <div class="big-number">${formatBigNumber(factorialStr)}</div>` :
+          `${num}! = ${calculation} = <strong style="color:var(--primary);">${formatBigNumber(factorialStr)}</strong>`;
+        
+        showResult(resultElement, `<span class="result-icon">🔢</span> ${resultText}`);
+      }, 10);
+    }
+    
+    function formatBigNumber(numStr) {
+      // Add commas for better readability of large numbers
+      return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    function showResult(element, message, type = 'success') {
+      element.innerHTML = message;
+      element.style.display = 'block';
+      element.style.backgroundColor = type === 'error' ? '#ffebee' : '#f8f9fa';
+      element.style.borderLeftColor = type === 'error' ? 'var(--error)' : 'var(--success)';
+    }
+  </script>
+</body>
+</html>
